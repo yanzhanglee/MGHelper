@@ -1,7 +1,15 @@
 package com.example.mghelper
 
-data class Record(
-    val id: Int,
-    val date: Long,
-    val logType: Int
-)
+class Record {
+    var id: Int? = null
+    var date: Long? = null
+    var recordType: Int? = null
+
+    constructor()
+
+    constructor(id: Int?, date: Long?, recordType: Int?){
+        this.id = id
+        this.date = date
+        this.recordType = recordType
+    }
+}

@@ -9,4 +9,9 @@
         android:icon="@drawable/ic_baseline_data_usage_24"
         android:title="Data"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/sign_out_menu"
+        android:icon="@drawable/ic_baseline_clear_all_24"
+        android:title="Sign Out"
+        app:showAsAction="ifRoom"/>
 </menu>
