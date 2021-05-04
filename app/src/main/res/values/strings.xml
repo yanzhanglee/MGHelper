@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MGHelper</string>
+    <string name="welcome_sentence">Your Myasthenia Helper</string>gn
+    <string name="signIn">Sign In</string>
+    <string name="passwordText">Password</string>
+    <string name="accountText">Account</string>
+
+    <string name="iconPlus">&#xe72b;</string>
+</resources>
