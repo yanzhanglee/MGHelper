@@ -24,10 +24,18 @@ class RecordHistoryAdapter(val context: Context,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordItemViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.recorditem, parent, false)
-        val binding = RecorditemBinding.bind(view)
-        return (RecordItemViewHolder(binding))
+
+        return if (viewType!=null){
+            val inflater = LayoutInflater.from(parent.context)
+            val view = inflater.inflate(R.layout.recorditem, parent, false)
+            val binding = RecorditemBinding.bind(view)
+            RecordItemViewHolder(binding)
+        }else{
+            val inflater = LayoutInflater.from(parent.context)
+            val view = inflater.inflate(R.layout.recorditem, parent, false)
+            val binding = RecorditemBinding.bind(view)
+            RecordItemViewHolder(binding)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {

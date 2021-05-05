@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mFirebaseAuth = FirebaseAuth.getInstance()
-
         if (mFirebaseAuth!!.getCurrentUser() == null) {
             // Not signed in, launch the Sign In activity
             startActivity(Intent(this, SignInActivity::class.java))
