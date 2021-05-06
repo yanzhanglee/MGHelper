@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         Animator.start()
         Animator.addListener(object: Animator.AnimatorListener{
             override fun onAnimationStart(animation: Animator?) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onAnimationEnd(animation: Animator?) {
@@ -117,11 +117,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onAnimationCancel(animation: Animator?) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onAnimationRepeat(animation: Animator?) {
-                TODO("Not yet implemented")
+
             }
         })
     }
