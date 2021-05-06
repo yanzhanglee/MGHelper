@@ -1,12 +1,17 @@
 package com.example.mghelper
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
+import android.animation.ObjectAnimator.ofFloat
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.view.animation.Animation
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mghelper.databinding.ActivityMainBinding
@@ -16,7 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +32,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mFirebaseAuth: FirebaseAuth
     private lateinit var mDatabase: FirebaseDatabase
     private lateinit var adapter: RecordHistoryAdapter
+
+    private lateinit var eyesLayout: LinearLayout
+    private lateinit var mouthLayout: LinearLayout
+    private var isFabOpen = false
+
 
     companion object {
         private const val TAG = "MainActivity"
@@ -60,14 +71,66 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         setupListOfDataIntoRecyclerView(options)
-        Log.d("debug","111")
+
+        binding.addRecordButton.setOnClickListener(){
+            if (!isFabOpen){
+                showFabMenu()
+            }else{
+                closeFabMenu()
+            }
+        }
+    }
+
+    private fun showFabMenu(){
+        isFabOpen = true
+        binding.fabBGLayout.visibility = View.VISIBLE
+        binding.eyesFabLayout.visibility = View.VISIBLE
+        binding.mouthFabLayout.visibility = View.VISIBLE
+        binding.addRecordButton.animate().setDuration(500).rotationBy(135F)
+        binding.eyesFabLayout.animate().setDuration(500).translationY(-200f)
+        binding.mouthFabLayout.animate().setDuration(500).translationY(-400f)
+    }
+
+    private fun closeFabMenu(){
+        isFabOpen = false
+        startAnimation(binding)
+//        binding.mouthFabLayout.animate().setDuration(1000).translationY(400f)
+    }
+    private fun startAnimation(binding: ActivityMainBinding){
+        binding.addRecordButton.animate().setDuration(500).rotationBy(-135F)
+        binding.eyesFabLayout.animate().setDuration(500).translationY(0f)
+
+        val currentY: Float = binding.mouthFabLayout.translationY
+        val Animator = ObjectAnimator
+            .ofFloat(binding.mouthFabLayout,"translationY",currentY,0f)
+        Animator.setDuration(500)
+        Animator.start()
+        Animator.addListener(object: Animator.AnimatorListener{
+            override fun onAnimationStart(animation: Animator?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                binding.fabBGLayout.visibility = View.GONE
+                binding.eyesFabLayout.visibility = View.GONE
+                binding.mouthFabLayout.visibility = View.GONE
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onAnimationRepeat(animation: Animator?) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun setupListOfDataIntoRecyclerView(options: FirebaseRecyclerOptions<Record>){
         binding.recordsRecyclerView.layoutManager = LinearLayoutManager(this)
         adapter = RecordHistoryAdapter(this, options, getUserName())
         binding.recordsRecyclerView.adapter = adapter
-        Log.d("debug","111")
+
     }
 
     private fun getUserPhotoUrl(): String? {
@@ -137,3 +200,4 @@ class MainActivity : AppCompatActivity() {
 
 
 }
+

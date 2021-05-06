@@ -12,4 +12,6 @@
     <color name="secondary_color">#42879B</color>
     <color name="grey_dark">#636B6F</color>
     <color name="grey_light">#919DA0</color>
+
+    <color name="grey_transparent">#80919DA0</color>
 </resources>
